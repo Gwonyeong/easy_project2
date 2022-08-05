@@ -17,6 +17,7 @@ class App {
     }
     setRouter(){
         this.app.use("/sign");
+        localhost:8080/sign
     }
     setErrorHandler(){
         this.app.use(error404);

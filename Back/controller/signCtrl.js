@@ -1,30 +1,37 @@
-const {User} = require("../models") //유저 데이터베이스
-const jwt = require("jsonwebtoken") 
-
+const signService = require('../service/sign.service.js')
 class signClass{
-   
+   signService
     getUser(id){
-        const user = User.findAll({
-            where : {id}
-        })
-        if(user){
-            return true //데이터 베이스에 같은 아이디가 있다면 true
-        }else{
-            return false
-        }
+        
     }
            
        
     
     
     
-    signUp = async(req, res, next) => {
-    
+    signUp = async(req, res, next) => {//회원가입
+    try{
+        const {id, pw , nickname, confirmPw} = req.body;
+        if(pw !== confirmPw){
+            //비밀번호가 다른 경우
+            return res.status(400).send({bool : false,msg :"아이디 또는 비밀번호를 확인하세요." })
+        }
+        signService.()
+        //아이디가 영소,대문자 
+        
+    }
+    catch{
+        next(err)
+    }
 
     }
     
-    singIn = async(req, res, next) => {
-    
+    singIn = async(req, res, next) => {//로그인
+    try{
+
+    }catch{
+        next(err)
+    }
     }
 }
 
