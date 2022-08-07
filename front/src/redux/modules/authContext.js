@@ -13,7 +13,6 @@ const authContext = createSlice({
       state.isLoggedIn = false;
       localStorage.removeItem("token");
     },
-
     login(state, action) {
       state.token = action.payload;
       state.isLoggedIn = true;

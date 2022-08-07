@@ -27,30 +27,33 @@ const AuthForm = () => {
     setIsLoading(true);
     let url;
     if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCrbZJv5eirNrmIUnjzkALyAZVS7OU3aRk";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_firebase}`;
     } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCrbZJv5eirNrmIUnjzkALyAZVS7OU3aRk";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_firebase}`;
     }
-    axios(url, {
-      method: "post", // 다른 옵션도 가능합니다 (post, put, delete, etc.)
-      headers: { "Content-Type": "application/json" },
-      data: {
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
         email: enteredEmail,
         password: enteredPassword,
         returnSecureToken: true,
+      }),
+      header: {
+        "Content-Type": "application/json",
       },
     })
       .then((res) => {
         setIsLoading(false);
         if (res.ok) {
-          return null;
+          return res.json();
         } else {
-          return (data) => {
+          return res.json().then((data) => {
             let errorMessage = "Authentication failed!";
+            // if (data && data.error && data.error.message) {
+            //   errorMessage = data.error.message;
+            // }
             throw new Error(errorMessage);
-          };
+          });
         }
       })
       .then((data) => {

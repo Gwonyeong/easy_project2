@@ -1,12 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate, BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import UserProfile from "../components/Profile/UserProfile";
 import AuthPage from "../pages/AuthPage";
 import HomePage from "../pages/HomePage";
+import { authActions } from "../redux/modules/authContext";
 
 const Router = () => {
+  const dispatch = useDispatch();
+
+  const initializeUserInfo = () => {
+    const loggedInfo = localStorage.getItem("token");
+    if (!loggedInfo) return;
+
+    dispatch(authActions.login(loggedInfo));
+  };
+
+  useEffect(initializeUserInfo, []);
+
   const isLoggedIn = useSelector((state) => state.authContext.isLoggedIn);
   return (
     <BrowserRouter>
