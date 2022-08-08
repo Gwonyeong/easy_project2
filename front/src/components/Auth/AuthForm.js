@@ -31,33 +31,20 @@ const AuthForm = () => {
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_firebase}`;
     }
-    fetch(url, {
+    axios(url, {
       method: "POST",
-      body: JSON.stringify({
+      data: {
         email: enteredEmail,
         password: enteredPassword,
         returnSecureToken: true,
-      }),
+      },
       header: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
         setIsLoading(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            // if (data && data.error && data.error.message) {
-            //   errorMessage = data.error.message;
-            // }
-            throw new Error(errorMessage);
-          });
-        }
-      })
-      .then((data) => {
-        dispatch(authActions.login(data.idToken));
+        dispatch(authActions.login(res.data.idToken));
         navigate("/", { replace: true });
       })
       .catch((err) => {

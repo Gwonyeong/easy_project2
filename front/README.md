@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# 라우터
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 전반적으로 라우터를 추가하였습니다.
+- NavLink를 이용할 수 있고
+- store와 연동, 동적라우팅을 이용해 로그인과 비로그인일 경우 보이는 화면이 다르게 구현했습니다.
+- 추가해야할 점: path=“\*”를 이용해 404 NotFound페이지 만들기
 
-## Available Scripts
+# 로그인 인증 & 유지
 
-In the project directory, you can run:
+- firebase를 이용해서 사용자 인증서비스를 구현했습니다.
+- id정보는 firebase의 기능을 이용해 암호화 됩니다.
+- store와 useEffect, local storage를 이용해 사용자가 한 번 로그인 했을시 리렌더링을 해도 로그인 상태가 유지되게 하였습니다.
+- firebase와 비동기 통신을 하는 라이브러리는 axios를 사용했습니다.
+- 추가해야할 점: 아직 axios를 이용한 비동기 통신에서 에러처리가 미흡합니다..
 
-### `yarn start`
+# 폴더구조 정리 및 변경
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 폴더구조가 복잡해질 것 같기에 임의로 조금 정리를 해봤습니다.
+- 정리를 하며 다른 분들의 기능들도 우선적으로 연결시켜보았습니다.
+- 제가 임의로 연결한것이기에 소통과 협의가 필요한 부분입니다.
+- 추가해야할 점: 그럼에도 조금 복잡해보이긴 합니다..
+- 추가해야할 점2: API 명세를 짜야합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# .env 파일 추가
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- env파일을 추가함으로써 firebase의 api키가 깃허브상에 올라가지 않도록 했습니다.
+- 앞으로도 다양한 환경변수와 키값들의 보안을 높일 수 있을 것 같습니다.
