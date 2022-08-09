@@ -1,34 +1,61 @@
-const {User} = require("../models") //유저 데이터베이스
-const jwt = require("jsonwebtoken") 
+const signService = require('../service/sign.service.js')
 
 class signClass{
-   
-    getUser(id){
-        const user = User.findAll({
-            where : {id}
-        })
-        if(user){
-            return true //데이터 베이스에 같은 아이디가 있다면 true
-        }else{
-            return false
-        }
+   signService = new signService();
+    
+    //아이디의 중복을 확인하는 기능
+    //중복이 있으면
+    // {
+    //     bool : true,
+    //     msg: "중복된 아이디가 있습니다."
+    // } 중복이 없으면{
+    //     bool : false,
+    //     msg: "사용 가능한 아이디 입니다."
+    // }
+    dupCheck = async(req, res, next) => {
+        const {id} = req.body;
+        const dupCheckData =await this.signService.dupUserSearch(id)
+        
+        res.send(dupCheckData)
     }
-           
        
     
     
-    
+    //회원가입 완료 
+    // return msg: "회원가입을 축하드립니다."
     signUp = async(req, res, next) => {
-    
+    try{
+        const {id, pw , nickname, confirmPw} = req.body;
+        if(pw !== confirmPw){
+            //비밀번호가 다른 경우
+            return res.status(400).send({bool : false,msg :"아이디 또는 비밀번호를 확인하세요." })
+        }
+        const signUpData =await this.signService.createUser(id, pw, nickname)
+
+        res.status(200).send(signUpData)
+        
+        
+    }
+    catch{
+        next(err)
+    }
 
     }
-    
+    //로그인
     singIn = async(req, res, next) => {
-    
+    try{
+        const {id, pw} = req.body;
+        const result =await this.signService.getLogin(id, pw);
+        
+        if(!result.token) return res.status(400).send(result)
+        
+        return res.status(200).send(result)
+    }
+    catch{
+        next(err)
+    }
     }
 }
 
 
-module.exports = {
-    signClass
-}
+module.exports =signClass
