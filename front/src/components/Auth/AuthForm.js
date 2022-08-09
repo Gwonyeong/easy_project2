@@ -27,24 +27,29 @@ const AuthForm = () => {
     setIsLoading(true);
     let url;
     if (isLogin) {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_firebase}`;
+      url = `http://localhost:8000/sign/in`;
     } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_firebase}`;
+      url = `http://localhost:8000/sign/up`;
     }
     axios(url, {
       method: "POST",
       data: {
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
+        id: enteredEmail,
+        pw: enteredPassword,
+        nickname: "asdasdasd",
+        confirmPw: enteredPassword,
       },
       header: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
+        console.log(res);
+        console.log(res.data.bool);
+        console.log(res.data.token);
+
         setIsLoading(false);
-        dispatch(authActions.login(res.data.idToken));
+        dispatch(authActions.login(res.data.token));
         navigate("/", { replace: true });
       })
       .catch((err) => {
