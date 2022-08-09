@@ -42,10 +42,10 @@ class SignService {
     // 2. 비교한 정보와 사용자에게 받은 비밀번호가 같다면 로그인 성공
     // 3. 로그인에 성공했다면 true와 쿠키로 토큰(사용자의 아이디 값) 발급
     getLogin = async (id, pw) => {
-        console.log("로그인 시도")
+        
         const loginData = await this.signRepository.loginUser(id)
         if(pw === jwt.verify(loginData.pw, env.secretKey,"1h")){
-            console.log("로그인")
+            
             const token = await jwt.sign(id, env.secretKey)
             
             return {
@@ -53,7 +53,7 @@ class SignService {
                 token
             }
         }else{
-            console.log("로그인 불가")
+            
             return {
                 bool : false
             }

@@ -2,6 +2,7 @@ const express = require("express")
 
 const indexRouter = require("./routes")
 const {error404, error} = require("./middlewares/error")
+const cors = require('cors');
 const app = express();
 app.use(express.json);
 
@@ -14,7 +15,7 @@ class App {
         
     }
     setMiddleWare(){
-        
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended : false}));
     }
