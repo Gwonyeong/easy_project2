@@ -1,0 +1,55 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "postId": "db id1",
+      "title": "제목입니다1",
+      "nickname": "작성자 닉네임1",
+      "img": "React",
+      "content": "글 작성 내용11",
+      "date": "111111111",
+      "commentsNum": "1",
+      "heart": [
+        "user1",
+        "user2"
+      ],
+      "done": false
+    },
+    {
+      "id": 2,
+      "postId": "db id2",
+      "title": "제목입니다22",
+      "nickname": "작성자 닉네임2",
+      "img": "React",
+      "content": "글 작성 내용22",
+      "date": "2222222222",
+      "commentsNum": "2",
+      "heart": [
+        "user1",
+        "user2"
+      ],
+      "done": false
+    },
+    {
+      "id": 3,
+      "postId": "db id3",
+      "title": "제목입니다33",
+      "nickname": "작성자 닉네임3",
+      "img": "React",
+      "content": "글 작성 내용33",
+      "date": "33333333333333",
+      "commentsNum": "3",
+      "heart": [
+        "user1",
+        "user2"
+      ],
+      "done": false
+    },
+    {
+      "title": "sdadd",
+      "img": "Node",
+      "content": "asdddd",
+      "id": 4
+    }
+  ]
+}
