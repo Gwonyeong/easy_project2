@@ -13,12 +13,17 @@ class signClass{
     //     msg: "사용 가능한 아이디 입니다."
     // }
     dupCheck = async(req, res, next) => {
-        const {id} = req.body;
+        try{
+            const {id} = req.body;
         const dupCheckData =await this.signService.dupUserSearch(id)
         
-        res.send(dupCheckData)
-    }
+        res.send(dupCheckData)}
+        catch(err){
+            next(err)
+        }
        
+    }
+
     
     
     //회원가입 완료 
@@ -36,7 +41,7 @@ class signClass{
         
         
     }
-    catch{
+    catch(err){
         next(err)
     }
 
@@ -47,11 +52,15 @@ class signClass{
         const {id, pw} = req.body;
         const result =await this.signService.getLogin(id, pw);
         
-        if(!result.token) return res.status(400).send(result)
+        if(!result.token) {return res.status(400).send(result)}
+        
+        res.cookie("token", result.token, {
+            maxAge: 60 * 60 * 1000,
+        })
         
         return res.status(200).send(result)
     }
-    catch{
+    catch(err){
         next(err)
     }
     }

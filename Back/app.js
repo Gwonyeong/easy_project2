@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cookieParser = require("cookie-parser")
 
 const indexRouter = require("./routes")
 const {error404, error} = require("./middlewares/error")
@@ -18,6 +18,7 @@ class App {
         
     }
     setMiddleWare(){
+        this.app.use(cookieParser())
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended : false}));
