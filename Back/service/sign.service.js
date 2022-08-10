@@ -1,6 +1,7 @@
 const signRepository = require('../repository/signRepository')
 const jwt = require("jsonwebtoken")
-const env = require("../key.js")
+require('dotenv').config();
+const env = process.env;
 
 
 class SignService {
@@ -32,7 +33,7 @@ class SignService {
     createUser = async (id, pw, nickname) => {
                
         pw = jwt.sign(pw, env.secretKey)
-        await this.signRepository.createUser(id, pw, nickname)
+        const createUserDate =await this.signRepository.createUser(id, pw, nickname)
 
         return createUserDate
     }
@@ -42,21 +43,25 @@ class SignService {
     // 2. 비교한 정보와 사용자에게 받은 비밀번호가 같다면 로그인 성공
     // 3. 로그인에 성공했다면 true와 쿠키로 토큰(사용자의 아이디 값) 발급
     getLogin = async (id, pw) => {
-        console.log("로그인 시도")
+        try{
         const loginData = await this.signRepository.loginUser(id)
-        if(pw === jwt.verify(loginData.pw, env.secretKey,"1h")){
-            console.log("로그인")
-            const token = await jwt.sign(id, env.secretKey)
+        
+        if(pw === jwt.verify(loginData.pw, env.secretKey)){
+            
+            const token = await jwt.sign((loginData.id
+                ,loginData.nickname), env.secretKey)
             
             return {
                 bool : true,
                 token
             }
         }else{
-            console.log("로그인 불가")
+            
             return {
                 bool : false
             }
+        }}catch(err){
+            next(err)
         }
     }
 }
